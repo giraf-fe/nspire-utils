@@ -6,7 +6,6 @@ GXX = nspire-g++
 LD  = nspire-ld
 AR  := $(shell (which arm-elf-ar arm-none-eabi-ar arm-linux-gnueabi-ar | head -1) 2>/dev/null)
 
-# -Werror removed for now due to xvid warnings
 SHAREDFLAGS = -Wall -Wextra -Wpedantic -Werror -marm -march=armv5te -mtune=arm926ej-s -mfpu=auto -Os -ffunction-sections -fdata-sections -mno-unaligned-access
 
 GCCFLAGS = $(SHAREDFLAGS) -std=c99
