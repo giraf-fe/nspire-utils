@@ -11,9 +11,7 @@ namespace ntls::platform {
     void InvalidateBothCaches();
     void InvalidateTLB();
     
-    void InvalidateEntireICache();
     void InvalidateICacheRange(uintptr_t start, uintptr_t end);
 
-    void FlushEntireDataCache();
     void FlushDataCacheRange(uintptr_t start, uintptr_t end);
 };

@@ -21,13 +21,7 @@ namespace ntls::platform {
         );
         DrainWriteBuffer();
     }
-    
-    void InvalidateEntireICache() {
-        __asm__ volatile (
-            "mcr p15, 0, %0, c7, c5, 0"
-            : : "r"(0) : "memory"
-        );
-    }
+  
     void InvalidateICacheRange(uintptr_t start, uintptr_t end) {
         uintptr_t addr = start & ~(CacheLineSize - 1);
         while (addr < end) {
@@ -39,12 +33,6 @@ namespace ntls::platform {
         }
     }
     
-    void FlushEntireDataCache() {
-        __asm__ volatile (
-            "mcr p15, 0, %0, c7, c10, 0"
-            : : "r"(0) : "memory"
-        );
-    }
     void FlushDataCacheRange(uintptr_t start, uintptr_t end) {
         uintptr_t addr = start & ~(CacheLineSize - 1);
         while (addr < end) {

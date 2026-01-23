@@ -29,4 +29,5 @@ need help implementing:
    - stuff on top of the low level device interfaces
      - stopwatch for the timers
      - sram relocator using mmu
+     - faster allocator implementations
      - etc.

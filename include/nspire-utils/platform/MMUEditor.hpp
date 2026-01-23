@@ -142,13 +142,16 @@ namespace ntls::platform {
     public:
         // throws std::bad_alloc if l2 table allocation fails
         // throws std::runtime_error if existing L1 entry is a fine page table
+        // virtual_addr determines the l1 index the new l2 table is mapped to, should be 1MB aligned
         MMUL2CoarsePageTableEditor(MMUEditor& mmuEditor, uintptr_t virtual_addr, uint8_t domain);    
         ~MMUL2CoarsePageTableEditor();
 
         // addrs must be 64KB aligned, will silently ignore lower bits
+        // attributes should include: MMUL2SubpageAccessPermissions and MMUCachePolicy
         void Map64KBPage(uintptr_t virtual_addr, uintptr_t physical_addr, uint32_t attributes);
 
         // addrs must be 4KB aligned, will silently ignore lower bits
+        // attributes should include: MMUL2SubpageAccessPermissions and MMUCachePolicy
         void Map4KBPage(uintptr_t virtual_addr, uintptr_t physical_addr, uint32_t attributes);
     };
         

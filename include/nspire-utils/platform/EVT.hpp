@@ -7,6 +7,7 @@
 
 namespace ntls::platform {
 
+    constexpr uint32_t EVT_Size = 0x20; // 8 vectors, 4 bytes each, total 32 bytes
     enum class EVT_Vector : uintptr_t {
         Reset = 0x00000000,
         UndefinedInstruction = 0x00000004,
@@ -27,4 +28,5 @@ namespace ntls::platform {
 
     void SetEVTValue(EVT_Vector vector, EVT_Position position, uint32_t instrution);
     uint32_t GetEVTValue(EVT_Vector vector, EVT_Position position);
+   
 }

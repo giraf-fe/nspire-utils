@@ -1,6 +1,6 @@
 #include <nspire-utils/platform/MMUEditor.hpp>
 
-#include <nspire-utils/mem/AlignedAlloc.hpp>
+#include <nspire-utils/mem/Alloc.hpp>
 #include <nspire-utils/platform/Caches.hpp>
 
 #include <stdexcept>

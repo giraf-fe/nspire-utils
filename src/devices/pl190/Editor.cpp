@@ -21,7 +21,7 @@ namespace ntls::devices {
 
     // irq status
     uint32_t PL190VIC_Editor::getIRQStatus() {
-        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICIRQStatus);
+        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_IRQStatus);
     }
     bool PL190VIC_Editor::getIRQStatus(uint8_t interruptNumber) {
         uint32_t status = getIRQStatus();
@@ -30,7 +30,7 @@ namespace ntls::devices {
 
     // fiq status
     uint32_t PL190VIC_Editor::getFIQStatus() {
-        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICFIQStatus);
+        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_FIQStatus);
     }
     bool PL190VIC_Editor::getFIQStatus(uint8_t interruptNumber) {
         uint32_t status = getFIQStatus();
@@ -39,7 +39,7 @@ namespace ntls::devices {
 
     // raw interrupt status
     uint32_t PL190VIC_Editor::getRawInterruptStatus() {
-        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICRawInterruptStatus);
+        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_RawInterruptStatus);
     }
     bool PL190VIC_Editor::getRawInterruptStatus(uint8_t interruptNumber) {
         uint32_t status = getRawInterruptStatus();
@@ -48,10 +48,10 @@ namespace ntls::devices {
 
     // set/get interrupt types
     void PL190VIC_Editor::setInterruptTypes(uint32_t bitmask) {
-        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICInterruptSelect) = bitmask;
+        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_InterruptSelect) = bitmask;
     }
     uint32_t PL190VIC_Editor::getInterruptTypes() {
-        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICInterruptSelect);
+        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_InterruptSelect);
     }
     void PL190VIC_Editor::setInterruptType(uint8_t interruptNumber, PL190InterruptType type) {
         uint32_t current = getInterruptTypes();
@@ -73,13 +73,13 @@ namespace ntls::devices {
 
     // enable/disable interrupts
     void PL190VIC_Editor::enableInterrupts(uint32_t bitmask) {
-        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICInterruptEnable) = bitmask;
+        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_InterruptEnable) = bitmask;
     }
     void PL190VIC_Editor::disableInterrupts(uint32_t bitmask) {
-        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICInterruptEnableClear) = bitmask;
+        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_InterruptEnableClear) = bitmask;
     }
     uint32_t PL190VIC_Editor::getEnabledInterrupts() {
-        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICInterruptEnable);
+        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_InterruptEnable);
     }
     void PL190VIC_Editor::enableInterrupt(uint8_t interruptNumber) {
         enableInterrupts(1 << interruptNumber);
@@ -94,13 +94,13 @@ namespace ntls::devices {
 
     // software interrupts
     void PL190VIC_Editor::setSoftwareInterrupts(uint32_t bitmask) {
-        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICSoftwareInt) = bitmask;
+        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_SoftwareInt) = bitmask;
     }
     void PL190VIC_Editor::clearSoftwareInterrupts(uint32_t bitmask) {
-        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICSoftwareIntClear) = bitmask;
+        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_SoftwareIntClear) = bitmask;
     }
     uint32_t PL190VIC_Editor::getSoftwareInterrupts() {
-        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICSoftwareInt);
+        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_SoftwareInt);
     }
     void PL190VIC_Editor::setSoftwareInterrupt(uint8_t interruptNumber) {
         setSoftwareInterrupts(1 << interruptNumber);
@@ -116,36 +116,36 @@ namespace ntls::devices {
     // protection
     void PL190VIC_Editor::setProtection(bool protect) {
         if (protect) {
-            *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICProtection) = 1;
+            *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_Protection) = 1;
         } else {
-            *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICProtection) = 0;
+            *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_Protection) = 0;
         }
     }
     bool PL190VIC_Editor::isProtected() {   
-        uint32_t current = *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICProtection);
+        uint32_t current = *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_Protection);
         return (current & 1) != 0;
     }
 
     // default vector address
     void PL190VIC_Editor::setDefaultVectorAddress(uint32_t address) {
-        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICDefaultVectAddr) = address;
+        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_DefaultVectAddr) = address;
     }
     uint32_t PL190VIC_Editor::getDefaultVectorAddress() {
-        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICDefaultVectAddr);
+        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_DefaultVectAddr);
     }
 
     // vector address/control table
     void PL190VIC_Editor::setVectorAddress(uint8_t index, uint32_t address) {
-        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICVectAddrTable + (index * sizeof(uint32_t))) = address;
+        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_VectAddrTable + (index * sizeof(uint32_t))) = address;
     }
     uint32_t PL190VIC_Editor::getVectorAddress(uint8_t index) {
-        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICVectAddrTable + (index * sizeof(uint32_t)));
+        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_VectAddrTable + (index * sizeof(uint32_t)));
     }
     void PL190VIC_Editor::setVectorControl(uint8_t index, uint32_t control) {
-        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICVectControlTable + (index * sizeof(uint32_t))) = control;
+        *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_VectControlTable + (index * sizeof(uint32_t))) = control;
     }
     uint32_t PL190VIC_Editor::getVectorControl(uint8_t index) {
-        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190_VICVectControlTable + (index * sizeof(uint32_t)));
+        return *reinterpret_cast<volatile uint32_t*>(baseAddress + PL190VIC_VectControlTable + (index * sizeof(uint32_t)));
     }
 };
 

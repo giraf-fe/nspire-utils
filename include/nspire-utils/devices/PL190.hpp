@@ -37,22 +37,22 @@ namespace ntls::devices {
     };
 
     // PL190 Register Offsets
-    constexpr uintptr_t PL190_VICIRQStatus              = 0x00;
-    constexpr uintptr_t PL190_VICFIQStatus              = 0x04;
-    constexpr uintptr_t PL190_VICRawInterruptStatus     = 0x08;
-    constexpr uintptr_t PL190_VICInterruptSelect        = 0x0C;
-    constexpr uintptr_t PL190_VICInterruptEnable        = 0x10;
-    constexpr uintptr_t PL190_VICInterruptEnableClear   = 0x14; // Write to clear, this allows for atomic disable
-    constexpr uintptr_t PL190_VICSoftwareInt            = 0x18;
-    constexpr uintptr_t PL190_VICSoftwareIntClear       = 0x1C;
-    constexpr uintptr_t PL190_VICProtection             = 0x20;
-    constexpr uintptr_t PL190_VICVectAddr               = 0x30;
-    constexpr uintptr_t PL190_VICDefaultVectAddr        = 0x34;
+    constexpr uintptr_t PL190VIC_IRQStatus              = 0x00;
+    constexpr uintptr_t PL190VIC_FIQStatus              = 0x04;
+    constexpr uintptr_t PL190VIC_RawInterruptStatus     = 0x08;
+    constexpr uintptr_t PL190VIC_InterruptSelect        = 0x0C;
+    constexpr uintptr_t PL190VIC_InterruptEnable        = 0x10;
+    constexpr uintptr_t PL190VIC_InterruptEnableClear   = 0x14; // Write to clear, this allows for atomic disable
+    constexpr uintptr_t PL190VIC_SoftwareInt            = 0x18;
+    constexpr uintptr_t PL190VIC_SoftwareIntClear       = 0x1C;
+    constexpr uintptr_t PL190VIC_Protection             = 0x20;
+    constexpr uintptr_t PL190VIC_VectAddr               = 0x30;
+    constexpr uintptr_t PL190VIC_DefaultVectAddr        = 0x34;
 
-    constexpr uintptr_t PL190_VICVectAddrTable          = 0x100; // Start of vector address table
-    constexpr uintptr_t PL190_VICVectControlTable       = 0x200; // Start of vector control registers
+    constexpr uintptr_t PL190VIC_VectAddrTable          = 0x100; // Start of vector address table
+    constexpr uintptr_t PL190VIC_VectControlTable       = 0x200; // Start of vector control registers
 
-    constexpr uint32_t PL190_VICVectControlEnabledBit = (1 << 5);
+    constexpr uint32_t PL190VIC_VectControlEnabledBit = (1 << 5);
 
     struct PL190VIC_State {
         uint32_t intSelect;
@@ -61,6 +61,7 @@ namespace ntls::devices {
         uint32_t protection;
         uint32_t vectAddr[16];
         uint32_t vectControl[16];
+        uint32_t defaultVectAddr;
     };
     PL190VIC_State SavePL190State(const uintptr_t baseAddress);
 

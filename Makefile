@@ -21,7 +21,17 @@ OBJS += $(patsubst %.cpp, %.o, $(shell find $(SRCDIR) -name \*.cpp 2>/dev/null))
 OBJS += $(patsubst %.S, %.o, $(shell find $(SRCDIR) -name \*.S 2>/dev/null))
 vpath %.a $(DISTDIR)
 
-all: $(LIB).a
+
+all: $(LIB).a tests
+
+TESTDIRS = $(patsubst %/,%,$(dir $(wildcard tests/*/Makefile)))
+
+.PHONY: all clean tests $(TESTDIRS)
+
+tests: $(TESTDIRS)
+
+$(TESTDIRS): $(LIB).a
+	$(MAKE) -C $@
 
 %.o: %.c
 	mkdir -p $(dir $(OBJDIR)/$@)
@@ -41,3 +51,4 @@ $(LIB).a: $(OBJS)
 
 clean:
 	rm -rf $(OBJDIR) $(DISTDIR)/$(LIB).a
+	for dir in $(TESTDIRS); do $(MAKE) -C $$dir clean; done

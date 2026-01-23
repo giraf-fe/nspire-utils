@@ -1,2 +1,8 @@
 obj/
+build/
+asm/
+*.obj
+*.tns
+*.elf
+*.zehn
 libnspireutils.a

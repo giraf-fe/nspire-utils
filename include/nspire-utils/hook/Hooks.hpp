@@ -28,8 +28,9 @@ namespace ntls::hook {
     // Simple hook utility
     // More complicated functionality (intercepting parameters, etc.) would
     // need to be implemented manually.
-    void HookFunctionEntry_ARM(EntryHookContext_ARM& context);
-    void HookFunctionExit_ARM(ExitHookContext_ARM& context);
+    void HookFunctionEntry_ARM(EntryHookContext_ARM& context); // run when a function is entered
+    void HookFunctionExit_ARM(ExitHookContext_ARM& context); // run when a function is exited
 
     void UnhookFunction_ARM(uintptr_t target_function, const uint32_t* saved_instructions);
+
 };
